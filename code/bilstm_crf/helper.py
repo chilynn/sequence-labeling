@@ -110,7 +110,7 @@ def loadMap(token2id_filepath):
 	id2token = {}
 	with open(token2id_filepath) as infile:
 		for row in infile:
-			row = row.strip().decode("utf-8")
+			row = row.rstrip().decode("utf-8")
 			token = row.split('\t')[0]
 			token_id = int(row.split('\t')[1])
 			token2id[token] = token_id
