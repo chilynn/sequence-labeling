@@ -8,9 +8,9 @@ is_train = True
 DEFAULT_PROB = 0.000000000001
 MIN_PROB = -1 * float('inf')
 
-train_path = "../../preprocess/data/train.in"
-test_path = "../../preprocess/data/test.in"
-output_path = "hmm.out"
+train_path = "train.in"
+test_path = "test.in"
+output_path = "test.out"
 
 def train():
 	print "start training ..."
@@ -26,8 +26,8 @@ def train():
 	with open(train_path, "rb") as infile:
 		pre_s = -1 # t-1时刻的状态
 		for line in infile:
-			segs = line.strip().split()
-			if len(segs) == 0: # 遇到空行时
+			segs = line.rstrip().split('\t')
+			if len(segs) != 2: # 遇到空行时
 				pre_s = -1
 			else:
 				o = segs[0] # t时刻的观测o
@@ -119,8 +119,8 @@ def test(A, B, PI, V, Q):
 		X_test = []
 		y_test = []
 		for line in infile:
-			segs = line.strip().split()
-			if len(segs) == 0: # 遇到空行时
+			segs = line.strip().split('\t')
+			if len(segs) != 2: # 遇到空行时
 				if len(X_test) == 0:
 					continue
 				preds = predict(X_test, A, B, PI, V, Q)
