@@ -146,7 +146,7 @@ def buildMap(train_path="train.in"):
 	return char2id, id2char, label2id, id2label
 
 def getTrain(train_path, val_path, train_val_ratio=0.99, use_custom_val=False, seq_max_len=200):
-	char2id, id2char, label2id, id2label = buildMap()
+	char2id, id2char, label2id, id2label = buildMap(train_path)
 	df_train = pd.read_csv(train_path, delimiter='\t', quoting=csv.QUOTE_NONE, skip_blank_lines=False, header=None, names=["char", "label"])
 
 	# map the char and label into id
