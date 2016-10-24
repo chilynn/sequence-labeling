@@ -68,20 +68,7 @@ class BILSTM_CRF(object):
         self.logits = tf.matmul(self.outputs, self.softmax_w) + self.softmax_b
 
         if not is_crf:  
-            self.loss = tf.nn.seq2seq.sequence_loss_by_example(
-                [self.logits],
-                [tf.reshape(self.targets, [-1])],
-                [tf.ones([self.batch_size * self.num_steps])]
-            )            
-            # mask the loss(handle variable length of sequence)
-            self.mask = tf.reshape(tf.sign(self.targets),[self.batch_size * self.num_steps])
-            self.mask = tf.cast(self.mask, tf.float32)         
-            self.loss *= self.mask
-            self.loss = tf.reduce_sum(self.loss) / self.batch_size
-            
-            # summary
-            self.train_summary = tf.scalar_summary("loss", self.loss)
-            self.val_summary = tf.scalar_summary("loss", self.loss)
+            # not implement
         else:
             self.tags_scores = tf.reshape(self.logits, [self.batch_size, self.num_steps, self.num_classes])
             self.transitions = tf.get_variable("transitions", [self.num_classes + 1, self.num_classes + 1])
