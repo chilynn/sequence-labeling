@@ -67,8 +67,8 @@ class BILSTM_CRF(object):
         self.softmax_b = tf.get_variable("softmax_b", [self.num_classes])
         self.logits = tf.matmul(self.outputs, self.softmax_w) + self.softmax_b
 
-        if not is_crf:  
-            # not implement
+        if not is_crf:
+            pass
         else:
             self.tags_scores = tf.reshape(self.logits, [self.batch_size, self.num_steps, self.num_classes])
             self.transitions = tf.get_variable("transitions", [self.num_classes + 1, self.num_classes + 1])
